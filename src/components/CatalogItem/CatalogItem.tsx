@@ -8,7 +8,7 @@ export const CatalogItem = () => {
 
   return (
     <li className={style.item}>
-      <a href="/card/id#">
+      <a href="teams/card#">
         <img
           className={style.img}
           src={photo}
