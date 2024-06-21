@@ -1,0 +1,23 @@
+.btn {
+  color: var(--gray-light);
+  border-radius: 8px;
+  border: 1px solid var(--gray-light);
+  min-width: 81px;  
+  line-height: 1.36;
+  padding: 8px 16px;  
+}
+
+.btnTablet {
+  display: none;
+  width: 40px;
+  height: 40px;
+}
+
+@media (max-width: 860px) {
+  .btn {
+    display: none;
+  }
+  .btnTablet {
+    display: block;
+  }
+}

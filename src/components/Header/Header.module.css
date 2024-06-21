@@ -1,0 +1,34 @@
+.header {
+  text-align: right;  
+  background-color: var(--accent);  
+  padding-top: 32px;
+}
+
+.headerAbsolute {    
+  display: flex;
+  justify-content: space-between;
+  background-color: transparent;
+}
+
+.wrapHeader {
+  position: absolute;
+  top: 32px;    
+  width: 100%;
+}
+
+.wrapBtns {
+  display: flex;
+  justify-content: space-between;  
+}
+
+
+@media (max-width: 860px) {  
+  .wrapHeader {   
+    top: 12px;        
+  } 
+
+  .header {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}

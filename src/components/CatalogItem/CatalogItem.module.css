@@ -1,0 +1,46 @@
+.item {
+  display: flex;
+  flex-direction: column;
+  min-width: 305px;
+  min-height: 263px;
+  border-radius: 10px;
+  padding: 36px 20px 20px 20px;
+  box-shadow: 0 1px 4px 0 rgba(51, 51, 51, 0.15);
+  background: var(--white);  
+}
+
+.img {
+  border-radius: 50%;
+  width: 124px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.card__content {
+  flex-grow: 1;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.title {
+  font-size: 20px;
+  align-self: center;
+  ;
+}
+
+.btnLike {
+  border-radius: 4px;
+  width: 30px;
+  height: 28px;
+  background: var(--gray-light);
+  align-self: flex-end;
+  color: var(--text);
+  
+}
+
+.btnLike svg {
+  /* fill: tomato; */
+}

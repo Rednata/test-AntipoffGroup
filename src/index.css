@@ -1,0 +1,83 @@
+@import 'normalize.css';
+@import './var.css';
+
+@font-face {
+  font-display: swap;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/public/fonts/roboto-v30-cyrillic-regular.woff2'),
+       url('/public/fonts/roboto-v30-cyrillic-regular.woff')
+   format('woff2'); 
+}
+
+html {
+  box-sizing: border-box;
+  position: relative;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  font-family:  Roboto, Arial, sans-serif;
+  color: #1C1C1C;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;  
+  background-color: var(--lightColor);
+  color: var(--text);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-width: 375px;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
+img {
+  display: block;  
+  height: auto;
+}
+
+svg {
+  display: block;
+  max-height: 100%;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, p, figure, fieldset {
+  margin: 0;
+}
+
+.visually-hidden {
+  position: fixed;
+  transform: scale(0);
+}
+
+
+
