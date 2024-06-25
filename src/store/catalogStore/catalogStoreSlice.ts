@@ -23,6 +23,17 @@ export const catalogStoreSlice = createSlice({
     catalogRequestError: (state, action) => {
       state.error = action.payload;
     },
+    updateCatalogListLiked: (state, action) => {
+      state.catalogList = [...state.catalogList]
+      const catalog = [...state.catalogList].map(elem => {
+        if (elem.id === action.payload.id) {
+          return ({ ...elem, isLike: action.payload.isLikeBtn });
+        } else {
+          return elem;
+        }
+      });
+      state.catalogList = catalog;
+    }
   }
 });
 

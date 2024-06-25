@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../store/store';
-import { ButtonLoadMore } from '../ButtonLoadMore/ButtonLoadMore';
 import { CatalogItem } from '../CatalogItem/CatalogItem';
 import { IItem } from '../../types&Interface';
 import { Container } from '../Container/Container';
@@ -17,15 +16,6 @@ export const Catalog = () => {
   const token = getToken();
   const catalog = useAppSelector(state => state.catalogList.catalogList);
   console.log('catalog: ', catalog);
-
-  // const likedCatalog = catalog.map(elem => {
-  //   if (liked.includes(elem.id)) {
-  //     return ({...elem, isLike: true})
-  //   } else {
-  //     return ({...elem, isLike: false})
-  //   }
-    
-  // })
 
   const isPagination = (useAppSelector(
     state => state.catalogList.totalPages)) > 1;

@@ -2,6 +2,7 @@ import { API_URI } from '../../api/api';
 import { AppDispatch } from '../store';
 import { catalogStoreSlice } from './catalogStoreSlice';
 
+
 export const catalogRequestAsync = () =>
   async (dispatch: AppDispatch) => {
     try {
@@ -9,7 +10,8 @@ export const catalogRequestAsync = () =>
       const response = await fetch(`${API_URI}api/users`);
       if (response.ok) {
         const data = await response.json();
-        dispatch(catalogStoreSlice.actions.catalogRequestSuccess(data));
+        dispatch(catalogStoreSlice.actions.catalogRequestSuccess({ data }
+        ));
       } else {
         throw new Error(String(response.status));
       }

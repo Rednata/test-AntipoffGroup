@@ -4,6 +4,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { catalogStoreSlice } from './catalogStore/catalogStoreSlice';
 import { cardStoreSlice } from './cardStore/cardStoreSlice';
 import { tokenMiddleware } from './registryStore/registryActionRequest';
+import { likeMiddleware } from './catalogStore/likeMiddleware';
 
 const rootReducer = combineReducers({
   token: registryStoreSlice.reducer,
@@ -14,7 +15,7 @@ const rootReducer = combineReducers({
 export const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(tokenMiddleware),
+    getDefaultMiddleware().concat(tokenMiddleware, likeMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
