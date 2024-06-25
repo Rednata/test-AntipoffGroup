@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/teams'
+        <Route path='/team'
           element={
             <>
               <Header />
@@ -17,7 +17,7 @@ function App() {
             </>
           }
         />
-        <Route path='/teams/:card'
+        <Route path='/team/:card'
           element={
             <>
               <Header/>
@@ -25,9 +25,8 @@ function App() {
             </>
           }
         />
-        <Route path='/'
-          element={<Registry />}
-        />
+        <Route path='/' element={<Registry />} />
+        <Route path='/auth' element={<Registry />} />
       </Routes>
     </>
   );

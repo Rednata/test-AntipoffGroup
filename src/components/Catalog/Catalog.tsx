@@ -1,12 +1,40 @@
+import { useAppSelector } from '../../store/store';
 import { ButtonLoadMore } from '../ButtonLoadMore/ButtonLoadMore';
 import { CatalogItem } from '../CatalogItem/CatalogItem';
-
+import { IItem } from '../../types&Interface';
 import { Container } from '../Container/Container';
-// import { Hero } from "../Hero/Hero";
 import style from './Catalog.module.css';
+import { Pagination } from '../Pagination/Pagination';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+  catalogRequestAsync
+} from '../../store/catalogStore/catalogActionRequest';
+import { getToken } from '../../localStorage/controlLocalStorage';
 
 export const Catalog = () => {
-  console.log();
+  const dispatch = useDispatch();
+  const token = getToken();
+  const catalog = useAppSelector(state => state.catalogList.catalogList);
+  console.log('catalog: ', catalog);
+
+  // const likedCatalog = catalog.map(elem => {
+  //   if (liked.includes(elem.id)) {
+  //     return ({...elem, isLike: true})
+  //   } else {
+  //     return ({...elem, isLike: false})
+  //   }
+    
+  // })
+
+  const isPagination = (useAppSelector(
+    state => state.catalogList.totalPages)) > 1;
+
+  useEffect(() => {
+    if (token) {
+      dispatch(catalogRequestAsync());
+    }
+  }, []);
 
   return (
     <>
@@ -23,15 +51,16 @@ export const Catalog = () => {
       <Container>
         <section className={style.catalog}>
           <ul className={style.list}>
-            <CatalogItem />
-            <CatalogItem />
-            <CatalogItem />
-            <CatalogItem />
-            <CatalogItem />
-            <CatalogItem />
-            <CatalogItem />
+            {
+              catalog.map((item: IItem) =>
+                <CatalogItem data={item} key={Math.random()}/>)
+            }
           </ul>
-          <ButtonLoadMore />
+
+          {
+            isPagination && <Pagination />
+          }
+
         </section>
       </Container>
     </>

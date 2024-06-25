@@ -3,14 +3,15 @@ import { Button } from '../Button/Button';
 import { Container } from '../Container/Container';
 import style from './Header.module.css';
 import { ButtonBack } from '../ButtonBack/ButtonBack';
+import { useLocation } from 'react-router-dom';
 
 export const Header = () => {
   const [isLoadAbsoluteHeader, setIsLoadAbsoluteHeader] = useState(false);
+  const path = useLocation().pathname;
 
   useEffect(() => {
-    const path = window.location;
-    setIsLoadAbsoluteHeader(path.pathname.includes('/catalog/card'));
-  }, [isLoadAbsoluteHeader]);
+    setIsLoadAbsoluteHeader(path.includes('/card'));
+  }, [path]);
 
   return (
       isLoadAbsoluteHeader ? (
@@ -26,9 +27,9 @@ export const Header = () => {
         </div>
       ) : (
         <header className={style.header}>
-        <Container>          
-          <Button />
-        </Container>
+          <Container>
+            <Button />
+          </Container>
         </header>
       )
   );

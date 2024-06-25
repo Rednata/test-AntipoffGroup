@@ -1,0 +1,18 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border: 1px solid red;
+}
+
+.btn {
+  border: 1px solid red;
+  padding: 5px;
+}
+
+.switches {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}

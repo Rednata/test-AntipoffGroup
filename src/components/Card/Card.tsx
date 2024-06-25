@@ -1,18 +1,37 @@
 import { Container } from '../Container/Container';
 import style from './Card.module.css';
 import image from '../../assets/ellipse.jpg';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../store/store';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { cardRequestAsync } from '../../store/cardStore/cardActionRequest';
+import { getToken } from '../../localStorage/controlLocalStorage';
 
 export const Card = () => {
-  console.log();
+  const dispatch = useDispatch();
+  const infoCard = useAppSelector(state => state.memberCard.memberCard);
+  const token = getToken();
+  const navigate = useNavigate();
+  const fullName = `${infoCard.first_name} ${infoCard.last_name}`;
+  // }
+  const id = useLocation().hash.substring(1);
 
+  useEffect(() => {
+    if (!token) {
+      navigate('/auth');
+    } else if (id) {
+      dispatch(cardRequestAsync(id));
+    }
+  }, []);
   return (
     <>
       <section className={style.heroCard}>
         <Container>
           <div className={style.heroCardWrap}>
-            <img src={image} alt="" className={style.heroCardImg} />
+            <img src={infoCard.avatar} alt="" className={style.heroCardImg} />
             <div className={style.heroCardContent}>
-              <h2 className={style.title}>Артур Королёв</h2>
+              <h2 className={style.title}>{fullName}</h2>
               <p className={style.subtitle}>
                 Партнер
               </p>
@@ -63,7 +82,7 @@ export const Card = () => {
               href="mailto:sykfafkar@gmail.com"
               className={`${style.icon} ${style.mail}`}
             >
-              sykfafkar@gmail.com
+              {infoCard.email}
             </a>
           </div>
         </section>
