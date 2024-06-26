@@ -1,21 +1,22 @@
+import { Dispatch } from '@reduxjs/toolkit';
 import { API_URI } from '../../api/api';
-import { setLocalStorage, setToken } from '../../localStorage/controlLocalStorage';
+import { setToken } from '../../localStorage/controlLocalStorage';
 import { AppDispatch } from '../store';
 import { registryStoreSlice } from './registryStoreSlice';
 
-interface infoAuth {
+interface IInfoAuth {
   email: string,
   password: string
 }
 
-export const tokenMiddleware = () => (next) => (action: any) => {
+export const tokenMiddleware = () => (next) => (action) => {
   if (action.type === 'token/updateToken') {
     setToken(action.payload.token);
   }
   next(action);
 };
 
-export const registryRequestAsync = ({ email, password }: infoAuth) =>
+export const registryRequestAsync = ({ email, password }: IInfoAuth) =>
   async (dispatch: AppDispatch) => {
     try {
       dispatch(registryStoreSlice.actions.registryRequest());
@@ -34,7 +35,6 @@ export const registryRequestAsync = ({ email, password }: infoAuth) =>
         throw new Error(String(response.status));
       }
     } catch (error) {
-      dispatch(registryStoreSlice.actions.registryRequestError(error.message));
       console.log('Ошибка:', (error));
     }
   };

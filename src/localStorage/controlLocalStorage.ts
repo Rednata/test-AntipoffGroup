@@ -14,7 +14,12 @@ export const clearToken = () => {
 //  ==================  LIKED  ==================
 //  ==================  LIKED  ==================
 
-export const getLike = () => JSON.parse(localStorage.getItem('liked'));
+export const getLike = () => {
+  const dataStorage = localStorage.getItem('liked');
+  if (dataStorage) {
+    return JSON.parse(dataStorage);
+  }
+};
 
 export const setLike = (like: { id: number, isLikeBtn: boolean }) => {
   const likedArr = getLike() || [];
@@ -25,6 +30,7 @@ export const setLike = (like: { id: number, isLikeBtn: boolean }) => {
 export const removeLike = (like: { id: number, isLikeBtn: boolean }) => {
   const likedArr = getLike() || [];
   localStorage.setItem('liked',
-    JSON.stringify(likedArr.filter(item => item.id !== like.id)));
+    JSON.stringify(likedArr.filter(
+      (item: {id: number, isLikeBtn: boolean}) => item.id !== like.id)));
 };
 

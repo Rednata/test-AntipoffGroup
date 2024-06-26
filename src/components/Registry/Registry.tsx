@@ -15,17 +15,17 @@ export const Registry = () => {
 
   const navigate = useNavigate();
 
-  const [isValidate, setIsValidate] = useState({
+  const [isInputValidate, setIsInputValidate] = useState({
     name: true,
     email: true,
     password: true,
     repeatPassword: true
   });
 
-  const [istemp, setIstemp] = useState(false);
+  const [isFormValidate, setIsFormValidate] = useState(false);
 
   const errorMessages = {
-    name: 'только латинские буквы и цифры. Не менее 3 символов',
+    name: 'только цифры, латинские буквы и _ . Не менее 3 символов',
     email: 'обязательно присутствие "@" и хотя бы по одному символу до и после',
     password: 'длина пароля не менее 5 символов',
     repeatPassword: 'пароли должны совпадать'
@@ -34,7 +34,7 @@ export const Registry = () => {
   const [authInfo, setAuthInfo] = useState(
     {
       name: '',
-      email: 'eve.holt@reqres.in',
+      email: '',
       password: '',
       repeatPassword: ''
     });
@@ -43,14 +43,15 @@ export const Registry = () => {
   const [isShowRepeatPassword, setIsShowRepeatPassword] = useState(false);
 
   const validateForm = () => {
-    const reg1 = /^[a-z0-9]{3,}/gi;
-    const reg2 = /.+@.+/;
+    const reg1 = /^\w{3,}$/gi;
+    // const reg1 = /[a-z0-9]{5,}/gi;
+    const reg2 = (authInfo.email === 'eve.holt@reqres.in');
     const reg3 = /.{5,}/;
     const reg4 = (authInfo.password === authInfo.repeatPassword);
 
-    setIsValidate({ ...isValidate,
-      name: !(reg1.test(authInfo.name)),
-      email: reg2.test(authInfo.email),
+    setIsInputValidate({ ...isInputValidate,
+      name: reg1.test(authInfo.name),
+      email: reg2,
       password: reg3.test(authInfo.password),
       repeatPassword: reg4
     });
@@ -79,16 +80,16 @@ export const Registry = () => {
   };
 
   useEffect(() => {
-    setIstemp(() =>
-      Object.values(isValidate).every((elem) => elem === true) &&
+    setIsFormValidate(() =>
+      Object.values(isInputValidate).every((elem) => elem === true) &&
       Object.values(authInfo).every((elem) => elem.length));
-  }, [isValidate]);
+  }, [isInputValidate]);
 
   useEffect(() => {
-    if (istemp) {
+    if (isFormValidate) {
       dispatch(registryRequestAsync(authInfo));
     }
-  }, [istemp]);
+  }, [isFormValidate]);
 
   useEffect(() => {
     if (token) {
@@ -115,11 +116,11 @@ export const Registry = () => {
               name='name'
               type="text"
               required
-              title='только латинские буквы и цифры. Не менее 3 символов'
+              title='только цифры, латинские буквы и _ . Не менее 3 символов'
               placeholder='Артур'
               autoComplete='off'
             />
-            {!isValidate.name &&
+            {!isInputValidate.name &&
             (<span className={style.warnMessage}>
               Ошибка: <span>{errorMessages.name}</span></span>)
             }
@@ -127,19 +128,19 @@ export const Registry = () => {
 
           <label htmlFor="" className={style.label}>Электронная почта
             <input
-              className={isValidate.email ?
+              className={isInputValidate.email ?
                 `${style.input}` : `${style.input} ${style.inputWarn}`}
               onChange={handleInputAuthInfo}
-              // value={authInfo.email}
-              value='eve.holt@reqres.in'
+              value={authInfo.email}
               name='email'
-              type="text"
+              type="email"
               required
               // placeholder='example@mail.ru'
-              // placeholder='eve.holt@reqres.in'
+              placeholder='eve.holt@reqres.in'
               autoComplete='off'
+              title='Работает только с почтой eve.holt@reqres.in'
             />
-            {!isValidate.email &&
+            {!isInputValidate.email &&
             (<span className={style.warnMessage}>
               Ошибка: <span>{errorMessages.email}</span></span>)
             }
@@ -163,7 +164,7 @@ export const Registry = () => {
                 {isShowPassword ? <ShowEyeIcon /> : <CloseEyeIcon />}
               </button>
             </div>
-            {!isValidate.password &&
+            {!isInputValidate.password &&
             (<span className={style.warnMessage}>
               Ошибка: <span>{errorMessages.password}</span></span>)
             }
@@ -186,7 +187,7 @@ export const Registry = () => {
                 {isShowRepeatPassword ? <ShowEyeIcon /> : <CloseEyeIcon />}
               </button>
             </div>
-            {!isValidate.repeatPassword &&
+            {!isInputValidate.repeatPassword &&
             (<span className={style.warnMessage}>
               Ошибка: <span>{errorMessages.repeatPassword}</span></span>)
             }

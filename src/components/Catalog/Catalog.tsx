@@ -1,24 +1,22 @@
-import { useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { CatalogItem } from '../CatalogItem/CatalogItem';
 import { IItem } from '../../types&Interface';
 import { Container } from '../Container/Container';
 import style from './Catalog.module.css';
-import { Pagination } from '../Pagination/Pagination';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import {
   catalogRequestAsync
 } from '../../store/catalogStore/catalogActionRequest';
 import { getToken } from '../../localStorage/controlLocalStorage';
+import { ButtonLoadMore } from '../ButtonLoadMore/ButtonLoadMore';
 
 export const Catalog = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const token = getToken();
   const catalog = useAppSelector(state => state.catalogList.catalogList);
-  console.log('catalog: ', catalog);
 
-  const isPagination = (useAppSelector(
-    state => state.catalogList.totalPages)) > 1;
+  const isShowLoadMoreBtn = (useAppSelector(
+    state => (state.catalogList.totalMembers / catalog.length) > 1));
 
   useEffect(() => {
     if (token) {
@@ -48,7 +46,7 @@ export const Catalog = () => {
           </ul>
 
           {
-            isPagination && <Pagination />
+            isShowLoadMoreBtn && <ButtonLoadMore />
           }
 
         </section>

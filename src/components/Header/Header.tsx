@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from '../Button/Button';
+import { ButtonLogout } from '../ButtonLogout/ButtonLogout';
 import { Container } from '../Container/Container';
 import style from './Header.module.css';
 import { ButtonBack } from '../ButtonBack/ButtonBack';
@@ -20,7 +20,7 @@ export const Header = () => {
             <Container>
               <div className={style.wrapBtns}>
                 <ButtonBack />
-                <Button />
+                <ButtonLogout />
               </div>
             </Container>
           </header>
@@ -28,7 +28,7 @@ export const Header = () => {
       ) : (
         <header className={style.header}>
           <Container>
-            <Button />
+            <ButtonLogout />
           </Container>
         </header>
       )

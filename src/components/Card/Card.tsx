@@ -1,21 +1,28 @@
 import { Container } from '../Container/Container';
 import style from './Card.module.css';
-import image from '../../assets/ellipse.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/store';
+import { useAppDispatch, useAppSelector } from '../../store/store';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { cardRequestAsync } from '../../store/cardStore/cardActionRequest';
 import { getToken } from '../../localStorage/controlLocalStorage';
+import { IItem } from '../../types&Interface';
 
 export const Card = () => {
-  const dispatch = useDispatch();
-  const infoCard = useAppSelector(state => state.memberCard.memberCard);
+  const dispatch = useAppDispatch();
+
+  const infoCard: IItem = useAppSelector(state => state.memberCard.memberCard);
+
+  console.log('infoCard: ', infoCard);
   const token = getToken();
   const navigate = useNavigate();
+
   const fullName = `${infoCard.first_name} ${infoCard.last_name}`;
-  // }
-  const id = useLocation().hash.substring(1);
+
+  if (Object.prototype.hasOwnProperty.call(infoCard, 'avatar')) {
+    console.log(infoCard.avatar);
+  }
+
+  const id = Number(useLocation().hash.substring(1));
 
   useEffect(() => {
     if (!token) {

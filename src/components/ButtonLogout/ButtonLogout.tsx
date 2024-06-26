@@ -1,16 +1,16 @@
 /* eslint-disable max-len */
 import { clearToken, getToken } from '../../localStorage/controlLocalStorage';
-import style from './Button.module.css';
-import ExitIcon from '../../../public/logoutIcon.svg?react';
-import EntryIcon from '../../../public/entryIcon.svg?react';
+import style from './ButtonLogout.module.css';
+import ExitIcon from '../../assets/logoutIcon.svg?react';
+import EntryIcon from '../../assets/entryIcon.svg?react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { registryStoreSlice } from '../../store/registryStore/registryStoreSlice';
+import { useAppDispatch } from '../../store/store';
 
-export const Button = () => {
+export const ButtonLogout = () => {
   const token = getToken();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     if (token) {
@@ -28,7 +28,11 @@ export const Button = () => {
       >
         {token ? 'Выход' : 'Вход'}
       </button>
-      <button className={style.btnTablet} onClick={handleLogout}>
+      <button
+        className={style.btnTablet}
+        onClick={handleLogout}
+        aria-label={token ? 'Выход' : 'Вход'}
+      >
         {token ? <span className={style.btnTabletExit}><ExitIcon /></span> : <EntryIcon/>}
       </button>
     </>

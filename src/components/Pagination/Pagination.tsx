@@ -1,10 +1,8 @@
-/* eslint-disable max-len */
 import { useAppSelector } from '../../store/store';
 import style from './Pagination.module.css';
 
 export const Pagination = () => {
   const countPages = useAppSelector(state => state.catalogList.totalPages);
-  console.log();
 
   return (
     <div className={style.pagination}>
